@@ -1,1 +1,1 @@
-# Regular Angular starter
+# ng-book repository
