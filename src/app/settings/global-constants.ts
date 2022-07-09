@@ -8,7 +8,7 @@ export interface IGlobalConstants {
 }
 export const globalConstantsToken = new InjectionToken<IGlobalConstants>('Global Constants', {
     factory: () => ({
-        APP_NAME: 'Angular-App',
+        APP_NAME: 'Chat app',
         APP_VERSION: '1.0.0',
         APP_DESCRIPTION: 'Angular App',
         APP_AUTHOR: 'Or Shalmayev',
