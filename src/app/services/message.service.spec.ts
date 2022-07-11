@@ -23,13 +23,14 @@ describe('MessagesService', () => {
         const messagesService: MessageService = new MessageService();
 
         // listen to each message indivdually as it comes in
-        messagesService.newMessages.subscribe((message: Message) => {
+        messagesService.newMessages.subscribe((message: IMessage) => {
             console.log('=> newMessages: ' + message.text);
         });
 
         // listen to the stream of most current messages
-        messagesService.messages.subscribe((messages: Message[]) => {
-            console.log('=> messages: ' + messages.length);
+        messagesService.messages.subscribe((messages: IMessage[]) => {
+            console.log('=> count messages: ' + messages.length);
+            console.log('=> messages: ',messages);
         });
 
         messagesService.addMessage(m1);
