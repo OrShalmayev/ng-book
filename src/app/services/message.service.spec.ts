@@ -9,7 +9,6 @@ describe('MessagesService', () => {
     it('should test', () => {
         const user: IUser = new User('Nate', '');
         const thread: IThread = new Thread('t1', 'Nate', '');
-        debugger;
         const m1: IMessage = new Message({
             author: user,
             text: 'Hi!',

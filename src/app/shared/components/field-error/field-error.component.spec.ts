@@ -8,7 +8,7 @@ describe('FieldErrorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FieldErrorComponent ]
+      imports: [ FieldErrorComponent ]
     })
     .compileComponents();
 
