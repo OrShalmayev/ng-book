@@ -1,8 +1,9 @@
 import { generateUUID } from "@shared/utils";
+import { IMessage } from "./message";
 
 export interface IThread {
     id: string;
-    lastMessage: Message;
+    lastMessage: IMessage;
     name: string|undefined;
     avatarSrc: string|undefined;
 }

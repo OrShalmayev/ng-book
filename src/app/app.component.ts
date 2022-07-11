@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { interval, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +7,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {}
+export class AppComponent {
+    subject$ = new Subject();
+    interval$ = interval(1000);
+
+    constructor() {
+        this.interval$.subscribe(this.subject$);
+    }
+}
