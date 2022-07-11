@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { IMessage } from '@models/message';
 import { IThread, Thread } from '@models/thread';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
 import { MessageService } from './message.service';
 
 export type TEntity<T> = Record<string, T>;
-
+import _ from 'lodash';
 @Injectable({
     providedIn: 'root',
 })
 export class ThreadService {
     // `threads` is a observable that contains the most up to date list of threads
     threads!: Observable<TEntity<IThread>>;
+    orderedThreads!: Observable<Thread[]>;
+    // `currentThread` contains the currently selected thread
+    currentThread: Subject<Thread> = new BehaviorSubject<Thread>(new Thread());
+
     constructor(private messageService: MessageService) {
         this.threads = messageService.messages.pipe(
             map((messages: IMessage[]) => {
@@ -29,5 +33,27 @@ export class ThreadService {
                 return threads;
             })
         );
+
+        this.orderedThreads = this.threads.pipe(
+            map((threadGroups: { [key: string]: Thread }) => {
+                const threads: Thread[] = _.values(threadGroups);
+                return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
+            })
+        );
+
+        this.trackUnreadMessages();
+    }
+
+    setCurrentThread(newThread: Thread): void {
+        this.currentThread.next(newThread);
+    }
+
+    /**
+         * We want to keep track of the number of unread messages. If we switch to a new
+        Thread then we want to mark all of the Messages in that Thread as read. We have the
+        parts we need to do this
+         */
+    trackUnreadMessages() {
+        this.currentThread.subscribe(this.messageService.markThreadAsRead);
     }
 }
