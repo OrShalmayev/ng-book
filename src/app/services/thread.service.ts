@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IMessage } from '@models/message';
+import { IMessage, Message } from '@models/message';
 import { IThread, Thread } from '@models/thread';
-import { BehaviorSubject, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
 import { MessageService } from './message.service';
 
 export type TEntity<T> = Record<string, T>;
@@ -15,6 +15,9 @@ export class ThreadService {
     orderedThreads!: Observable<Thread[]>;
     // `currentThread` contains the currently selected thread
     currentThread: Subject<Thread> = new BehaviorSubject<Thread>(new Thread());
+    // `currentThreadMessages` contains the set of messages for the currently
+    // selected thread
+    currentThreadMessages: Observable<Message[]>;
 
     constructor(private messageService: MessageService) {
         this.threads = messageService.messages.pipe(
@@ -39,6 +42,24 @@ export class ThreadService {
                 const threads: Thread[] = _.values(threadGroups);
                 return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
             })
+        );
+
+
+        this.currentThreadMessages = combineLatest(
+            [this.currentThread, messageService.messages],
+            (currentThread: Thread, messages: Message[]) => {
+                if (currentThread && messages.length > 0) {
+                    return _.chain(messages)
+                        .filter((message: Message) => message.thread.id === currentThread.id)
+                        .map((message: Message) => {
+                            message.isRead = true;
+                            return message;
+                        })
+                        .value();
+                }
+
+                return [];
+            }
         );
 
         this.trackUnreadMessages();
