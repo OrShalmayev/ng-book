@@ -40,7 +40,7 @@ For instance, the UsersService:
 - offers a setCurrentUser function which will set the current user (that is, emit
 the current user from the currentUser stream)
 
-## ngrx - Reducers
+## NgRx - Reducers
 In this app, we have two reducers:
 • UsersReducer - handles information about the current user
 • ThreadsReducer - handles threads and their message
