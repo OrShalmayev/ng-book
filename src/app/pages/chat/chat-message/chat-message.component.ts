@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { Message } from '@models/message.model';
 import { User } from '@models/user.model';
 import { UsersService } from 'src/app/services/users.service';
@@ -7,6 +7,7 @@ import { UsersService } from 'src/app/services/users.service';
     selector: 'chat-message',
     templateUrl: './chat-message.component.html',
     styleUrls: ['./chat-message.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatMessageComponent implements OnInit {
     @Input('message') message!: Message;

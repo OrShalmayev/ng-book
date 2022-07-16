@@ -6,7 +6,7 @@
                     <div class="panel-title-container col-md-10 col-xs-10">
                         <h3 class="panel-title">
                             <span class="glyphicon glyphicon-comment"></span>
-                            Chat - {{currentThread.name}}
+                            Chat - {{(currentThread$|async)?.name}}
                         </h3>
                     </div>
                     <div class="panel-buttons-container col-md-2 col-xs-2">
