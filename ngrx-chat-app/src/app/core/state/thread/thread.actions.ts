@@ -22,5 +22,6 @@ export const threadActions = createActionGroup({
                 message: messageWithDefaults,
             };
         },
+        'Select Thread': props<{thread: IThread}>()
     },
 });

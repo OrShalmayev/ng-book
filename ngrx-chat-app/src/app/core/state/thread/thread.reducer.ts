@@ -25,7 +25,7 @@ export const threadsReducer = createReducer(
         };
     }),
     // ADD MESSAGE
-    on(threadActions.addMessage, (state, {thread, message}) => {
+    on(threadActions.addMessage, (state, { thread, message }) => {
         // special case: if the message being added is in the current thread, then
         // mark it as read
         const isRead = message?.thread?.id === state.currentThreadId ? true : message.isRead;
@@ -47,4 +47,24 @@ export const threadsReducer = createReducer(
             }),
         };
     }),
+    // SELECT THREAD
+    on(threadActions.selectThread, (state, { thread }) => {
+        const oldThread = state.entities[thread.id];
+
+        // mark the messages as read
+        const newMessages = oldThread.messages.map(message => Object.assign({}, message, { isRead: true }));
+
+        // give them to this new thread
+        const newThread = Object.assign({}, oldThread, {
+            messages: newMessages,
+        });
+
+        return {
+            ids: state.ids,
+            currentThreadId: thread.id,
+            entities: Object.assign({}, state.entities, {
+                [thread.id]: newThread,
+            }),
+        };
+    })
 ); // END createReducer

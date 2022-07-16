@@ -1355,6 +1355,13 @@
   "resolved" "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.3.tgz"
   "version" "2.0.3"
 
+"@ngrx/effects@^14.0.2":
+  "integrity" "sha512-1VBJ9eBoeCKSBDkn+wllV1gFGLBrRwq5So0F0QUX2rPcjpE5N1pdpuLAmmwQ84f8nttVlMOx4P9kcEM8qW9jLg=="
+  "resolved" "https://registry.npmjs.org/@ngrx/effects/-/effects-14.0.2.tgz"
+  "version" "14.0.2"
+  dependencies:
+    "tslib" "^2.0.0"
+
 "@ngrx/eslint-plugin@^14.0.1":
   "integrity" "sha512-zEFdpOjJnZpExBfYzHpKn/Y0+kZ+NabVOoLWjQhzc0UAjZ/vCqA9iOVntpd1MVPqqQZLa2mVLGxweZbWmdcZiA=="
   "resolved" "https://registry.npmjs.org/@ngrx/eslint-plugin/-/eslint-plugin-14.0.2.tgz"
@@ -1366,10 +1373,17 @@
     "semver" "^7.3.5"
     "strip-json-comments" "3.1.1"
 
-"@ngrx/store@^14.0.1":
-  "integrity" "sha512-DoaH7MwRoE8KW6+c+mKczW7HrG9+Uuw+z8jWxZvL3wTnGyBaEOpu7GlVO/JN0nyz4/FW0MIBMYubCM5AAaaDpw=="
-  "resolved" "https://registry.npmjs.org/@ngrx/store/-/store-14.0.1.tgz"
-  "version" "14.0.1"
+"@ngrx/store-devtools@^14.0.2":
+  "integrity" "sha512-szaJSeoWA2GAaE9uzVmH00ewlWQDCI4Xfb6/5GEKMhGNtRSh6UctulNHVR+0TjjiEb4dhUBLMOVUc9HkI+yFCQ=="
+  "resolved" "https://registry.npmjs.org/@ngrx/store-devtools/-/store-devtools-14.0.2.tgz"
+  "version" "14.0.2"
+  dependencies:
+    "tslib" "^2.0.0"
+
+"@ngrx/store@^14.0.1", "@ngrx/store@14.0.2":
+  "integrity" "sha512-ogxcK7fj4zXCxCVJXzX2+jbVCfvC7ehbvbD5oWXT7GFajUIvA8FSXQzapUPAQEqFbjxgFzhjMFBApMaOcfleIQ=="
+  "resolved" "https://registry.npmjs.org/@ngrx/store/-/store-14.0.2.tgz"
+  "version" "14.0.2"
   dependencies:
     "tslib" "^2.0.0"
 
