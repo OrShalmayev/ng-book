@@ -47,3 +47,5 @@ the current user from the currentUser stream)
 ## Summary
 At a high level, the application data architecture is straightforward:
 - The services maintain streams which emit models (e.g. Messages)
+- The components subscribe to those streams and render according to the most
+recent values
