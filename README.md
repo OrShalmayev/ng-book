@@ -1,11 +1,6 @@
 # ng-book repository
 Examples and Exercises from the "ng-book: The Complete Book on Angular 11" by Nate Murray, Felipe Coury, Ari Lerner and Carlos Taborda.
 
-## branches:
-
-rxjs-chat-app = Chat app using rxjs<br>
-ngrx-chat-app  = Chat app using ngrx
-
 # Chat App Overview
 few things about this application:
 - You can click on the threads to chat with another person
