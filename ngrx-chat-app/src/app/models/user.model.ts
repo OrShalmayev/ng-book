@@ -4,6 +4,7 @@ export interface IUser {
     id: string;
     name: string;
     avatarSrc: string;
+    isClient?:boolean;//  the person using the app
 }
 
 /**

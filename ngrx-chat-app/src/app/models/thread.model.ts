@@ -1,18 +1,21 @@
-import { generateUUID } from "@shared/utils";
-import { IMessage } from "./message.model";
+import { generateUUID } from '@shared/utils';
+import { IMessage } from './message.model';
 
+/**
+ * Thread represents a group of Users exchanging Messages
+ */
 export interface IThread {
     id: string;
-    lastMessage: IMessage;
-    name: string|undefined;
-    avatarSrc: string|undefined;
+    name: string | undefined;
+    avatarSrc: string | undefined;
+    messages: IMessage[];
 }
 
 export class Thread implements IThread {
     id: string;
-    lastMessage: any;
     name: string | undefined;
     avatarSrc: string | undefined;
+    messages: IMessage[];
 
     constructor(id?: string, name?: string, avatarSrc?: string) {
         this.id = id || generateUUID();

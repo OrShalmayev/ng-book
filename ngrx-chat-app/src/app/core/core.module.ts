@@ -12,6 +12,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
 
 export function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
     if (parentModule) {
@@ -28,13 +29,16 @@ const MODULES = [
     HttpClientModule,
     FormsModule,
 ];
-
+const EXPORTS = [
+    ...MODULES
+];
 @NgModule({
     declarations: [],
     imports: [
         ...MODULES,
+        StoreModule.forRoot({}, {}),
     ],
-    exports: [...MODULES]
+    exports: [...EXPORTS]
 })
 export class CoreModule {
     constructor(
