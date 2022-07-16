@@ -39,6 +39,12 @@ For instance, the UsersService:
 - publishes a stream that emits the current user and
 - offers a setCurrentUser function which will set the current user (that is, emit
 the current user from the currentUser stream)
+
+## ngrx - Reducers
+In this app, we have two reducers:
+• UsersReducer - handles information about the current user
+• ThreadsReducer - handles threads and their message
+
 ## Summary
 At a high level, the application data architecture is straightforward:
 - The services maintain streams which emit models (e.g. Messages)
