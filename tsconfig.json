@@ -29,6 +29,7 @@
       "@pages/*": ["./src/app/pages/*"],
       "@layouts/*": ["./src/app/layouts/*"],
       "@models/*": ["./src/app/models/*"],
+      "@styles/*": ["./src/styles/*"],
     }
   },
   "angularCompilerOptions": {
