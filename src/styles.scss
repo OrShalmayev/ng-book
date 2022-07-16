@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use './styles/variables' as vars;
 
 html,
 body {
@@ -14,4 +15,20 @@ body {
 
 :root {
   --navbar-height: 64px;
+  --header-height: 3rem;
+}
+
+header {
+    display: block;
+    width: 100%;
+    height:var(--header-height);
+}
+main {
+    margin-top: var(--header-height);
+}
+
+img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
 }
