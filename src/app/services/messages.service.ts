@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { IMessage, Message } from '@models/message';
-import { IThread } from '@models/thread';
-import { IUser } from '@models/user';
+import { IMessage, Message } from '@models/message.model';
+import { IThread } from '@models/thread.model';
+import { IUser } from '@models/user.model';
 import { filter, map, Observable, scan, shareReplay, Subject, tap } from 'rxjs';
 
 interface IMessagesOperation extends Function {
@@ -11,7 +11,7 @@ interface IMessagesOperation extends Function {
 @Injectable({
     providedIn: 'root',
 })
-export class MessageService {
+export class MessagesService {
     // a stream that publishes new messages only once
     newMessages: Subject<IMessage> = new Subject<IMessage>();
 

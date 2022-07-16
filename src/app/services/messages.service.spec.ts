@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { IMessage, Message } from '@models/message';
-import { IThread, Thread } from '@models/thread';
-import { IUser, User } from '@models/user';
+import { IMessage, Message } from '@models/message.model';
+import { IThread, Thread } from '@models/thread.model';
+import { IUser, User } from '@models/user.model';
 
-import { MessageService } from './message.service';
+import { MessagesService } from './messages.service';
 
 describe('MessagesService', () => {
     it('should test', () => {
@@ -20,7 +20,7 @@ describe('MessagesService', () => {
             thread: thread,
         });
 
-        const messagesService: MessageService = new MessageService();
+        const messagesService: MessagesService = new MessagesService();
 
         // listen to each message indivdually as it comes in
         messagesService.newMessages.subscribe((message: IMessage) => {

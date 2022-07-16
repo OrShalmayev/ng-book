@@ -1,24 +1,24 @@
 import { TestBed } from '@angular/core/testing';
-import { Message } from '@models/message';
-import { IThread, Thread } from '@models/thread';
-import { IUser, User } from '@models/user';
-import { MessageService } from './message.service';
+import { Message } from '@models/message.model';
+import { IThread, Thread } from '@models/thread.model';
+import { IUser, User } from '@models/user.model';
+import { MessagesService } from './messages.service';
 
-import { ThreadService } from './thread.service';
+import { ThreadsService } from './threads.service';
 import _ from 'lodash';
-describe('ThreadService', () => {
-    let service: ThreadService;
-    let messageService: MessageService;
+describe('ThreadsService', () => {
+    let service: ThreadsService;
+    let messagesService: MessagesService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({});
-        service = TestBed.inject(ThreadService);
-        messageService = TestBed.inject(MessageService);
+        service = TestBed.inject(ThreadsService);
+        messagesService = TestBed.inject(MessagesService);
     });
 
     it('services should be created', () => {
         expect(service).toBeTruthy();
-        expect(messageService).toBeTruthy();
+        expect(messagesService).toBeTruthy();
     });
 
     it('should collect the Threads from Messages', () => {
@@ -53,8 +53,8 @@ describe('ThreadService', () => {
             console.log(`=> threads (${threads.length}): ${threadNames} `);
         });
 
-        messageService.addMessage(m1);
-        messageService.addMessage(m2);
-        messageService.addMessage(m3);
+        messagesService.addMessage(m1);
+        messagesService.addMessage(m2);
+        messagesService.addMessage(m3);
     });
 });

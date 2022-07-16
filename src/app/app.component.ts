@@ -1,17 +1,21 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { interval, Subject } from 'rxjs';
+import { ChatExampleData } from './data/chat-example-data';
+import { MessagesService } from './services/messages.service';
+import { ThreadsService } from './services/threads.service';
+import { UsersService } from './services/users.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
-    subject$ = new Subject();
-    interval$ = interval(1000);
-
-    constructor() {
-        this.interval$.subscribe(this.subject$);
+    constructor(
+        public messagesService: MessagesService,
+        public threadsService: ThreadsService,
+        public usersService: UsersService,
+    ) {
+        ChatExampleData.init(messagesService, threadsService, usersService);
     }
 }

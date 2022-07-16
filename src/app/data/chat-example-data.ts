@@ -1,10 +1,10 @@
 /* tslint:disable:max-line-length */
-import { User } from '../user/user.model';
-import { Thread } from '../thread/thread.model';
-import { Message } from '../message/message.model';
-import { MessagesService } from '../message/messages.service';
-import { ThreadsService } from '../thread/threads.service';
-import { UsersService } from '../user/users.service';
+import { User } from '../models/user.model';
+import { Thread } from '../models/thread.model';
+import { Message } from '../models/message.model';
+import { MessagesService } from '../services/messages.service';
+import { ThreadsService } from '../services/threads.service';
+import { UsersService } from '../services/users.service';
 import * as moment from 'moment';
 
 // the person using the app us Juliet

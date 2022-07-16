@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { IMessage, Message } from '@models/message';
-import { IThread, Thread } from '@models/thread';
+import { IMessage, Message } from '@models/message.model';
+import { IThread, Thread } from '@models/thread.model';
 import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
-import { MessageService } from './message.service';
+import { MessagesService } from './messages.service';
 
 export type TEntity<T> = Record<string, T>;
 import _ from 'lodash';
 @Injectable({
     providedIn: 'root',
 })
-export class ThreadService {
+export class ThreadsService {
     // `threads` is a observable that contains the most up to date list of threads
     threads!: Observable<TEntity<IThread>>;
     orderedThreads!: Observable<Thread[]>;
@@ -19,8 +19,8 @@ export class ThreadService {
     // selected thread
     currentThreadMessages: Observable<Message[]>;
 
-    constructor(private messageService: MessageService) {
-        this.threads = messageService.messages.pipe(
+    constructor(private messagesService: MessagesService) {
+        this.threads = messagesService.messages.pipe(
             map((messages: IMessage[]) => {
                 const threads: TEntity<IThread> = {};
                 // Store the message's thread in our accumulator `threads`
@@ -46,7 +46,7 @@ export class ThreadService {
 
 
         this.currentThreadMessages = combineLatest(
-            [this.currentThread, messageService.messages],
+            [this.currentThread, messagesService.messages],
             (currentThread: Thread, messages: Message[]) => {
                 if (currentThread && messages.length > 0) {
                     return _.chain(messages)
@@ -75,6 +75,6 @@ export class ThreadService {
         parts we need to do this
          */
     trackUnreadMessages() {
-        this.currentThread.subscribe(this.messageService.markThreadAsRead);
+        this.currentThread.subscribe(this.messagesService.markThreadAsRead);
     }
 }

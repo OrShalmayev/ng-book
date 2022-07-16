@@ -1,6 +1,6 @@
 import { generateUUID } from '@shared/utils';
-import { IThread } from './thread';
-import { IUser } from './user';
+import { IThread } from './thread.model';
+import { IUser } from './user.model';
 
 export interface IMessage {
     id: string;

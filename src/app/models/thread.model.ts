@@ -1,5 +1,5 @@
 import { generateUUID } from "@shared/utils";
-import { IMessage } from "./message";
+import { IMessage } from "./message.model";
 
 export interface IThread {
     id: string;
