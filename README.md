@@ -42,8 +42,8 @@ the current user from the currentUser stream)
 
 ## NgRx - Reducers
 In this app, we have two reducers:
-• UsersReducer - handles information about the current user
-• ThreadsReducer - handles threads and their message
+- UsersReducer - handles information about the current user
+- ThreadsReducer - handles threads and their message
 
 ## Summary
 At a high level, the application data architecture is straightforward:
