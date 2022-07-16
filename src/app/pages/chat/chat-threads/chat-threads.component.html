@@ -1,9 +1,8 @@
 <!-- conversations -->
 <div class="row">
     <div class="conversation-wrap col-lg-3">
-    
     <chat-thread
-        *ngFor="let thread of (orderedThreads$ | async)"
+        *ngFor="let thread of (orderedThreads$ | async); trackBy: trackByThread"
         [thread]="thread">
     </chat-thread>
     

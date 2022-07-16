@@ -21,4 +21,8 @@ export class ChatThreadsComponent implements OnInit {
         this.orderedThreads$ = this.threadsService.orderedThreads;
         this.orderedThreads$.subscribe(console.log)
     }
+
+    trackByThread(thread:any) {
+        return thread?.id;
+    }
 }

@@ -25,7 +25,7 @@ export class ThreadsService {
                 const threads: TEntity<IThread> = {};
                 // Store the message's thread in our accumulator `threads`
                 messages.map((message: IMessage) => {
-                    message = _.cloneDeep(message);
+                    message = message;
                     threads[message.thread.id] = threads[message.thread.id] || message.thread;
 
                     // Cache the most recent message for each thread
