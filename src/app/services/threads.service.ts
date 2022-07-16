@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { IMessage, Message } from '@models/message.model';
 import { IThread, Thread } from '@models/thread.model';
-import { BehaviorSubject, combineLatest, map, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, combineLatest, debounceTime, map, Observable, Subject } from 'rxjs';
 import { MessagesService } from './messages.service';
 
 export type TEntity<T> = Record<string, T>;
@@ -25,6 +25,7 @@ export class ThreadsService {
                 const threads: TEntity<IThread> = {};
                 // Store the message's thread in our accumulator `threads`
                 messages.map((message: IMessage) => {
+                    message = _.cloneDeep(message);
                     threads[message.thread.id] = threads[message.thread.id] || message.thread;
 
                     // Cache the most recent message for each thread
@@ -39,27 +40,28 @@ export class ThreadsService {
 
         this.orderedThreads = this.threads.pipe(
             map((threadGroups: { [key: string]: Thread }) => {
+                threadGroups = threadGroups;
                 const threads: Thread[] = _.values(threadGroups);
                 return _.sortBy(threads, (t: Thread) => t.lastMessage.sentAt).reverse();
             })
         );
 
 
-        this.currentThreadMessages = combineLatest(
-            [this.currentThread, messagesService.messages],
-            (currentThread: Thread, messages: Message[]) => {
-                if (currentThread && messages.length > 0) {
-                    return _.chain(messages)
-                        .filter((message: Message) => message.thread.id === currentThread.id)
-                        .map((message: Message) => {
-                            message.isRead = true;
-                            return message;
-                        })
-                        .value();
-                }
-
-                return [];
-            }
+        this.currentThreadMessages = combineLatest([this.currentThread, messagesService.messages]).pipe(
+            map(([currentThread, messages]) => {
+                    
+                    if (currentThread && messages.length > 0) {
+                        return _.chain(messages)
+                            .filter((message: Message) => message.thread.id === currentThread.id)
+                            .map((message: Message) => {
+                                message.isRead = true;
+                                return message;
+                            })
+                            .value();
+                    }
+    
+                    return [];
+                })
         );
 
         this.trackUnreadMessages();

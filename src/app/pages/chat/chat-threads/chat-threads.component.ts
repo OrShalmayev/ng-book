@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Thread } from '@models/thread.model';
+import { IThread, Thread } from '@models/thread.model';
 import { Observable } from 'rxjs';
 import { ThreadsService } from 'src/app/services/threads.service';
 
@@ -10,11 +10,15 @@ import { ThreadsService } from 'src/app/services/threads.service';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChatThreadsComponent implements OnInit {
-    threads$: Observable<Thread[]>;
+    orderedThreads$!:Observable<IThread[]>;
 
-    constructor(public threadsService: ThreadsService) {
-        this.threads$ = threadsService.orderedThreads;
+    constructor(
+        public threadsService: ThreadsService,
+    ) {
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.orderedThreads$ = this.threadsService.orderedThreads;
+        this.orderedThreads$.subscribe(console.log)
+    }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Thread } from '@models/thread.model';
 import { map, Observable } from 'rxjs';
 import { ThreadsService } from 'src/app/services/threads.service';
@@ -9,10 +9,13 @@ import { ThreadsService } from 'src/app/services/threads.service';
     styleUrls: ['./chat-thread.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChatThreadComponent implements OnInit {
+export class ChatThreadComponent implements OnInit, OnChanges {
     @Input('thread') thread!: Thread;
     selected$!: Observable<boolean>;
     constructor(public threadsService: ThreadsService) {}
+    ngOnChanges(changes: SimpleChanges): void {
+        console.log(changes)
+    }
 
     ngOnInit(): void {
         this.selected$ = this.threadsService.currentThread

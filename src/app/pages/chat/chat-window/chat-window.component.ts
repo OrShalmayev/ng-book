@@ -3,7 +3,7 @@ import { IMessage, Message } from '@models/message.model';
 import { IThread, Thread } from '@models/thread.model';
 import { IUser, User } from '@models/user.model';
 import { BaseComponent } from '@shared/components/base-component';
-import { combineLatest, debounceTime, delay, Observable, Subject, switchMap } from 'rxjs';
+import { combineLatest, debounceTime, delay, forkJoin, Observable, Subject, switchMap, take } from 'rxjs';
 import { MessagesService } from 'src/app/services/messages.service';
 import { ThreadsService } from 'src/app/services/threads.service';
 import { UsersService } from 'src/app/services/users.service';
@@ -57,10 +57,14 @@ export class ChatWindowComponent extends BaseComponent implements OnInit, OnDest
         this.sendMessage$
             .pipe(
                 this.untilDestroy(),
-                debounceTime(300),
-                switchMap(_ => combineLatest([this.currentUser$, this.currentThread$]))
+                switchMap(_ => {
+                    return forkJoin({ 
+                        currentUser: this.currentUser$.pipe(take(1)), 
+                        currentThread: this.currentThread$.pipe(take(1)) 
+                    });
+                })
             )
-            .subscribe(([currentUser, currentThread]) => {
+            .subscribe(({ currentUser, currentThread }) => {
                 const m: Message = this.draftMessage;
                 m.author = currentUser;
                 m.thread = currentThread;
@@ -77,9 +81,9 @@ export class ChatWindowComponent extends BaseComponent implements OnInit, OnDest
         1. the user hits the “Send” button or
         2. the user hits the Enter (or Return) key
      */
-    onEnter(event: any): void {
-        this.sendMessage$.next();
+    onEnter(event: Event): void {
         event.preventDefault();
+        this.sendMessage$.next();
     }
     /**
      * ChatWindowComponent scrollToBottom

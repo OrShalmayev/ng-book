@@ -3,8 +3,8 @@
     <div class="conversation-wrap col-lg-3">
     
     <chat-thread
-    *ngFor="let thread of threads$ | async"
-    [thread]="thread">
+        *ngFor="let thread of (orderedThreads$ | async)"
+        [thread]="thread">
     </chat-thread>
     
     </div>
