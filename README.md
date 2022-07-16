@@ -53,7 +53,7 @@ In this app, we have two reducers:
 
 ### Summary
 At a high level our data architecture looks like this:
-- All information about the users and threads (which hold messages) are contained in our central store
+- All information about the users and threads (which hold messages) are contained in our central store
 - Components subscribe to changes in that store and display the appropriate data
 (unread count, list of threads, the messages themselves
 - When the user sends a message, our components dispatch an action to the store
