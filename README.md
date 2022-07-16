@@ -7,18 +7,15 @@ chat-app  = Chat app using ngrx
 
 
 # Chat App Overview
-In this chapter, we’re going to use RxJS to build a chat app. Here’s a screenshot:
-
-Notice a few things about this application:
-• You can click on the threads to chat with another person
-• The bots will send you messages back, depending on their personality
-• The unread message count in the top corner stays in sync with the number of
-unread messages
+few things about this application:
+-You can click on the threads to chat with another person
+-The bots will send you messages back, depending on their personality
+-The unread message count in the top corner stays in sync with the number of unread messages
 
 Let’s look at an overview of how this app is constructed. We have
-• 3 top-level Angular Components
-• 3 models
-• and 3 services
+-3 top-level Angular Components
+-3 models
+-and 3 services
 Let’s look at them one at a time.
 
 ## Components
