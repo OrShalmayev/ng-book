@@ -29,7 +29,8 @@ This application also has three models:
 - Message - stores an individual message
 - Thread - stores a collection of Messages as well as some data about the
 conversation
-## Services
+## RxJS 
+### Services:
 In this app, each of our models has a corresponding service. The services are singleton
 objects that play two roles:
 
@@ -39,14 +40,21 @@ For instance, the UsersService:
 - publishes a stream that emits the current user and
 - offers a setCurrentUser function which will set the current user (that is, emit
 the current user from the currentUser stream)
-
-## NgRx - Reducers
-In this app, we have two reducers:
-- UsersReducer - handles information about the current user
-- ThreadsReducer - handles threads and their message
-
-## Summary
+### Summary
 At a high level, the application data architecture is straightforward:
 - The services maintain streams which emit models (e.g. Messages)
 - The components subscribe to those streams and render according to the most
 recent values
+## NgRx 
+### Reducers
+In this app, we have two reducers:
+- UsersReducer - handles information about the current user
+- ThreadsReducer - handles threads and their message
+
+### Summary
+At a high level our data architecture looks like this:
+- All information about the users and threads (which hold messages) are contained in our central store
+- Components subscribe to changes in that store and display the appropriate data
+(unread count, list of threads, the messages themselves
+- When the user sends a message, our components dispatch an action to the store
+
