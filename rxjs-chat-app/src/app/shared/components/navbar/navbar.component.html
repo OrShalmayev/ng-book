@@ -1,0 +1,5 @@
+<mat-toolbar>
+  <a routerLink="/">{{globalConstants.APP_NAME}}</a>
+  <span class="spacer"></span>
+  <button mat-button>Messages: {{unreadMessagesCount$ | async }}</button>
+</mat-toolbar>
