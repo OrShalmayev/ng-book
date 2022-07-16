@@ -1,4 +1,5 @@
 # ng-book repository
+Examples and Exercises from the "ng-book: The Complete Book on Angular 11" by Nate Murray, Felipe Coury, Ari Lerner and Carlos Taborda.
 
 ## branches:
 
