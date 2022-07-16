@@ -12,8 +12,10 @@ Let’s look at an overview of how this app is constructed. We have
 • 3 models
 • and 3 services
 Let’s look at them one at a time.
+
 ## Components
 The page is broken down into three top-level components:
+![image](https://user-images.githubusercontent.com/46129649/178409050-ca9a0905-0df7-47c8-9a86-8e02b1d8afac.png)
 
  ChatNavBarComponent - contains the unread messages count
 • ChatThreadsComponent - shows a clickable list of threads, along with the most
@@ -23,6 +25,7 @@ box to send new messages
 
 ## Models
 This application also has three models:
+![image](https://user-images.githubusercontent.com/46129649/178409082-258eca99-0b91-4428-8a1c-b046f6ca7e4a.png)
 
 • User - stores information about a chat participant
 • Message - stores an individual message
