@@ -3,7 +3,7 @@
 ## branches:
 
 rxjs-chat-app = Chat app using rxjs<br>
-chat-app  = Chat app using ngrx
+ngrx-chat-app  = Chat app using ngrx
 
 
 # Chat App Overview
