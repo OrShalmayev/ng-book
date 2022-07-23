@@ -1,0 +1,12 @@
+<div class="media conversation" *ngLet="{thread: thread$|async, lastMessage: lastMessage$|async, selected: selected$ |async} as ctx">
+    <div class="pull-left">
+        <img class="media-object avatar img-responsive" src="{{ctx?.thread?.avatarSrc}}">
+    </div>
+    <div class="media-body">
+        <h5 class="media-heading contact-name">{{ctx?.thread?.name}}
+            <span *ngIf="ctx?.selected">&bull;</span>
+        </h5>
+        <small class="message-preview">{{ctx?.lastMessage}}</small>
+    </div>
+    <a (click)="selectThread($event)" class="div-link">Select</a>
+</div>

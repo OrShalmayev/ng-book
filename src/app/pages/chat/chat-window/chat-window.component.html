@@ -1,0 +1,32 @@
+<div class="chat-window-container row">
+    <div class="chat-window col-xs-10 col-sm-5">
+        <div class="panel-container col-xs-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading top-bar">
+                    <div class="panel-title-container col-md-10 col-xs-10">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-comment"></span>
+                            Chat - {{(currentThread$|async)?.name}}
+                        </h3>
+                    </div>
+                    <div class="panel-buttons-container col-md-2 col-xs-2">
+                        <!-- you could put minimize or close buttons here -->
+                    </div>
+                </div>
+                <div class="panel-body msg-container-base">
+                    <chat-message *ngFor="let message of messages$ | async" [message]="message">
+                    </chat-message>
+                </div>
+                <div class="panel-footer input-sm form-control">
+                    <div class="input-group">
+                        <input type="text" class="chat-input" placeholder="Write your message here..."
+                            (keydown.enter)="onEnter($event)" [(ngModel)]="draftMessage.text">
+                        <span class="input-group-btn">
+                            <button class="btn-chat btn btn-primary btn-sm" (click)="onEnter($event)">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
