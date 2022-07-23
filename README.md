@@ -1,6 +1,9 @@
 # ng-book repository
 Examples and Exercises from the "ng-book: The Complete Book on Angular 11" by Nate Murray, Felipe Coury, Ari Lerner and Carlos Taborda.
 
+# links
+https://ng-book-ngrx-chat-app.herokuapp.com/
+
 # Chat App Overview
 few things about this application:
 - You can click on the threads to chat with another person
