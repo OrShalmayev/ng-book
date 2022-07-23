@@ -41,7 +41,7 @@ export const getAllMessages = createSelector(threads, threads => {
             return m1.sentAt.getTime() - m2.sentAt.getTime();
         }); // sort them by time
 });
-
+const getLastMessage = (threadId: IThread['id']) => createSelector(threads, threads => threads.find(t => t.id === threadId)?.messages?.at(-1)?.text)
 export const threadSelectors = {
     state,
     entities,
@@ -52,4 +52,5 @@ export const threadSelectors = {
     currentThreadMessages,
     unreadMessagesCount,
     getAllMessages,
+    getLastMessage,
 };
