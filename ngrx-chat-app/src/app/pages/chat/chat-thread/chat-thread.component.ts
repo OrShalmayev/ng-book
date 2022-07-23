@@ -1,9 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Thread } from '@models/thread.model';
+import { IAppState } from '@core/state/app/app.types';
+import { threadActions } from '@core/state/thread/thread.actions';
+import { threadSelectors } from '@core/state/thread/thread.selectors';
+import { IThread } from '@models/thread.model';
+import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components/base-component';
 import { map, Observable } from 'rxjs';
-import { MessagesService } from 'src/app/services/messages.service';
-import { ThreadsService } from 'src/app/services/threads.service';
 
 @Component({
     selector: 'chat-thread',
@@ -12,38 +14,26 @@ import { ThreadsService } from 'src/app/services/threads.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatThreadComponent extends BaseComponent implements OnInit {
-    @Input('thread') thread!: Thread;
+    @Input('thread') thread!: IThread;
     selected$!: Observable<boolean>;
 
     constructor(
-        public threadsService: ThreadsService,
-        private messagesService: MessagesService,
-        private cd: ChangeDetectorRef,
+        private store: Store<IAppState>,
     ) {
         super();
     }
 
     ngOnInit(): void {
-        this.messagesService.newMessages.pipe(
-            this.untilDestroy(),
-        ).subscribe(message => {
-            const newMessageIsForCurrentThread = message.thread.id === this.thread.id;
-            if (newMessageIsForCurrentThread) {
-                this.cd.detectChanges();
-            }
-        });
-
-        this.selected$ = this.threadsService.currentThread
+        this.selected$ = this.store.select(threadSelectors.currentThread)
         .pipe(
-            this.untilDestroy(),
             map(currentThread => {
-                return currentThread && this.thread && currentThread.id === this.thread.id;
+                return Boolean(currentThread && this.thread && currentThread.id === this.thread.id);
             })
         )
     }
 
-    clicked(event: any): void {
-        this.threadsService.setCurrentThread(this.thread);
+    selectThread(event: Event): void {
         event.preventDefault();
+        this.store.dispatch(threadActions.selectThread({thread: this.thread}))
     }
 }

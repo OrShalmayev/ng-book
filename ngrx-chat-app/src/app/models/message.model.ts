@@ -9,7 +9,7 @@ export interface IMessage {
     id?: string;
     sentAt?: Date;
     isRead?: boolean;
-    thread?: IThread;
+    thread: IThread;
     author: IUser;
     text: string;
 }
@@ -20,7 +20,7 @@ export class Message implements IMessage {
     id?: string | undefined;
     sentAt?: Date | undefined;
     isRead?: boolean | undefined;
-    thread?: IThread | undefined;
+    thread: IThread;
     author: IUser;
     text: string;
 

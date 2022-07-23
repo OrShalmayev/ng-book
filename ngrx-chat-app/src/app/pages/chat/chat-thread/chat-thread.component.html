@@ -6,7 +6,7 @@
         <h5 class="media-heading contact-name">{{thread.name}}
             <span *ngIf="selected$ | async">&bull;</span>
         </h5>
-        <small class="message-preview">{{thread.lastMessage.text}}</small>
+        <small class="message-preview">{{thread.messages[-1]?.text}}</small>
     </div>
-    <a (click)="clicked($event)" class="div-link">Select</a>
+    <a (click)="selectThread($event)" class="div-link">Select</a>
 </div>

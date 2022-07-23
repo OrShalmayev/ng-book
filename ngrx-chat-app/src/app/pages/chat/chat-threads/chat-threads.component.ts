@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IThread, Thread } from '@models/thread.model';
+import { IAppState } from '@core/state/app/app.types';
+import { threadActions } from '@core/state/thread/thread.actions';
+import { threadSelectors } from '@core/state/thread/thread.selectors';
+import { IThread } from '@models/thread.model';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ThreadsService } from 'src/app/services/threads.service';
 
 @Component({
     selector: 'chat-threads',
@@ -13,13 +16,12 @@ export class ChatThreadsComponent implements OnInit {
     orderedThreads$!:Observable<IThread[]>;
 
     constructor(
-        public threadsService: ThreadsService,
+        private store: Store<IAppState>,
     ) {
     }
 
     ngOnInit(): void {
-        this.orderedThreads$ = this.threadsService.orderedThreads;
-        this.orderedThreads$.subscribe(console.log)
+        this.orderedThreads$ = this.store.select(threadSelectors.threads);
     }
 
     trackByThread(thread:any) {

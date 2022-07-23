@@ -46,28 +46,22 @@ const EXPORTS = [...MODULES];
         }),
     ],
     exports: [...EXPORTS],
+    providers: [
+        ...WINDOW_PROVIDERS,
+        {
+            provide: NAVIGATOR,
+            useFactory: (window: Window | AnyObject) => window.navigator ?? {},
+            deps: [WINDOW],
+        },
+        ...CORE_SERVICES,
+        { provide: HTTP_INTERCEPTORS, useExisting: ApiInterceptor, multi: true },
+        { provide: LOCALE_ID, useValue: 'en-US' },
+        { provide: TitleCasePipe, useClass: TitleCasePipe },
+        ...CORE_PROVIDERS,
+    ]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
         throwIfAlreadyLoaded(parentModule, 'CoreModule');
-    }
-
-    static forRoot(): ModuleWithProviders<CoreModule> {
-        return {
-            ngModule: CoreModule,
-            providers: [
-                ...WINDOW_PROVIDERS,
-                {
-                    provide: NAVIGATOR,
-                    useFactory: (window: Window | AnyObject) => window.navigator ?? {},
-                    deps: [WINDOW],
-                },
-                ...CORE_SERVICES,
-                { provide: HTTP_INTERCEPTORS, useExisting: ApiInterceptor, multi: true },
-                { provide: LOCALE_ID, useValue: 'en-US' },
-                { provide: TitleCasePipe, useClass: TitleCasePipe },
-                ...CORE_PROVIDERS,
-            ],
-        };
     }
 }

@@ -7,5 +7,5 @@ export interface IThreadsEntities {
 export interface IThreadsState {
     ids: string[];
     entities: IThreadsEntities;
-    currentThreadId?: string|null;
+    currentThreadId: string;
 }

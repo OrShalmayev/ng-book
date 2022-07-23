@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { IAppState } from '@core/state/app/app.types';
+import { threadActions } from '@core/state/thread/thread.actions';
+import { threadSelectors } from '@core/state/thread/thread.selectors';
+import { userSelectors } from '@core/state/user/user.selectors';
 import { IMessage, Message } from '@models/message.model';
-import { IThread, Thread } from '@models/thread.model';
-import { IUser, User } from '@models/user.model';
+import { IThread } from '@models/thread.model';
+import { IUser } from '@models/user.model';
+import { Store } from '@ngrx/store';
 import { BaseComponent } from '@shared/components/base-component';
 import { combineLatest, debounceTime, delay, forkJoin, Observable, Subject, switchMap, take } from 'rxjs';
-import { MessagesService } from 'src/app/services/messages.service';
-import { ThreadsService } from 'src/app/services/threads.service';
-import { UsersService } from 'src/app/services/users.service';
 
 @Component({
     selector: 'chat-window',
@@ -15,52 +17,38 @@ import { UsersService } from 'src/app/services/users.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChatWindowComponent extends BaseComponent implements OnInit, OnDestroy {
-    messages!: Observable<IMessage[]>;
+    messages$!: Observable<IMessage[]>;
     currentThread$!: Observable<IThread>;
     draftMessage!: Message;
     currentUser$!: Observable<IUser>;
     sendMessage$ = new Subject<void>();
 
-    constructor(
-        public messagesService: MessagesService,
-        public threadsService: ThreadsService,
-        public usersService: UsersService,
-        public el: ElementRef
-    ) {
+    constructor(private store: Store<IAppState>, public el: ElementRef) {
         super();
     }
 
     ngOnInit(): void {
-        this.messages = this.threadsService.currentThreadMessages;
+        this.messages$ = this.store.select(threadSelectors.currentThreadMessages);
         /**
          * Now that we have a function that will scroll to the bottom, we have to make sure
         that we call it at the right time. Back in ngOnInit let’s subscribe to the list of
         currentThreadMessages and scroll to the bottom anytime we get a new message
          */
-        this.messages.pipe(delay(0)).subscribe((messages: Array<Message>) => {
+        this.messages$.pipe(this.untilDestroy(), delay(0)).subscribe((messages: Array<Message>) => {
             this.scrollToBottom();
         });
 
         this.draftMessage = new Message();
-        this.currentThread$ = this.threadsService.currentThread;
-        this.currentUser$ = this.usersService.user$;
+        this.currentThread$ = this.store.select(threadSelectors.currentThread);
+        this.currentUser$ = this.store.select(userSelectors.currentUser);
 
-        /**
-     * The sendMessage function above takes the draftMessage, sets the author and thread
-        using our component properties. Every message we send has “been read” already (we
-        wrote it) so we mark it as read.
-        Notice here that we’re not updating the draftMessage text. That’s because we’re
-        going to bind the value of the messages text in the view in a few minutes.
-        After we’ve updated the draftMessage properties we send it off to the messagesService and then create a new Message and set that new Message to this.draftMessage.
-        We do this to make sure we don’t mutate an already sent message
-     */
         this.sendMessage$
             .pipe(
                 this.untilDestroy(),
                 switchMap(_ => {
-                    return forkJoin({ 
-                        currentUser: this.currentUser$.pipe(take(1)), 
-                        currentThread: this.currentThread$.pipe(take(1)) 
+                    return forkJoin({
+                        currentUser: this.currentUser$.pipe(take(1)),
+                        currentThread: this.currentThread$.pipe(take(1)),
                     });
                 })
             )
@@ -69,7 +57,7 @@ export class ChatWindowComponent extends BaseComponent implements OnInit, OnDest
                 m.author = currentUser;
                 m.thread = currentThread;
                 m.isRead = true;
-                this.messagesService.addMessage(m);
+                this.store.dispatch(threadActions.addMessage(currentThread, m));
                 this.draftMessage = new Message();
             });
     }

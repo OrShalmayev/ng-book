@@ -8,14 +8,14 @@ export const threadActions = createActionGroup({
     source: EStateFeatures.Threads,
     events: {
         'Add Thread': props<{ thread: IThread }>(),
-        'Add Message': (thread: IThread, message: IMessage) => {
+        'Add Message': (thread: IThread, message: Partial<IMessage>) => {
             const defaults = {
                 id: generateUUID(),
                 sentAt: new Date(),
                 isRead: false,
-                thread: thread,
+                thread,
             };
-            const messageWithDefaults: IMessage = {...defaults, ...message};
+            const messageWithDefaults = {...defaults, ...message};
 
             return {
                 thread: thread,
