@@ -12,7 +12,6 @@ class NgLetContext<T> {
 
 @Directive({
     selector: '[ngLet]',
-    standalone: true,
 })
 export class NgLetDirective<T = unknown> implements OnInit {
     constructor(
