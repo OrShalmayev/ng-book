@@ -49,7 +49,11 @@ recent values
 ### Reducers
 In this app, we have two reducers:
 - UsersReducer - handles information about the current user
-- ThreadsReducer - handles threads and their message
+- ThreadsReducer - which manages:
+  - The list of threads
+  - The messages in those threads
+  - The currently selected thread
+
 
 ### Summary
 At a high level our data architecture looks like this:
